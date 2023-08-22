@@ -7,6 +7,9 @@ android {
     namespace 'com.rickyslash.mapsmapboxapp'
     compileSdk 33
 
+    def Properties properties = new Properties()
+    properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
     defaultConfig {
         applicationId "com.rickyslash.mapsmapboxapp"
         minSdk 21
@@ -15,6 +18,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        resValue "string", "maps_public_token", properties.getProperty("maps.public.token", "")
     }
 
     buildTypes {
@@ -41,4 +46,10 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // Mapbox
+    implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:9.6.0"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v8:0.7.0"
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-telemetry:6.1.0'
 }

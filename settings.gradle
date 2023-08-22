@@ -5,11 +5,23 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+Properties props = new Properties()
+props.load(new FileInputStream(new File('local.properties')))
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication { basic(BasicAuthentication) }
+            credentials {
+                username = 'mapbox'
+                password = props['mapbox.downloads.token']
+            }
+        }
     }
 }
 
